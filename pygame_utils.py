@@ -4,12 +4,13 @@
 import pygame
 
 class Button():
-	def __init__(self, event, pos, width, height, color=None, text=None, border_thickness=None):
+	def __init__(self, event, pos, width, height, color=None, bg_color=None, text=None, border_thickness=None):
 		self.event = event
 		self.pos = pos			# (x, y) format
 		self.width = width
 		self.height = height
 		self.color = color if color is not None else (100, 100, 100)
+		self.bg_color = bg_color if bg_color is not None else (200, 200, 200)
 		self.text = text if text is not None else ""
 		self.border_thickness = border_thickness if border_thickness is not None else 0
 
@@ -26,11 +27,9 @@ class Button():
 		pygame.draw.rect(surface, self.color, self.rect, self.border_thickness)
 
 		font = pygame.font.Font('freesansbold.ttf', self.height // 3)
-		text = font.render(self.text, True, (0,0,0))
-		text_rect = text.get_rect()
-		text_rect.center = (self.pos[0] + (self.width // 2), self.pos[1] + (self.height // 2))
+		text = font.render(self.text, True, self.color)
 
-		surface.blit(txt, txtRect)
+		surface.blit(text, (self.pos[0] + self.width // 2 - text.get_width() // 2, self.pos[1] + self.height // 2 - text.get_height() // 2))
 
 def main():
 	pass
